@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Tripulación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input,
+        button,
+        select {
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        #apiSelector {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Gestión de Tripulación</h1>
+
+    <div id="apiSelector">
+        <label for="apiUrl">Seleccionar API:</label>
+        <select id="apiUrl">
+            <option value="http://localhost:3000/api/tripulacion">API Local</option>
+            <option value="https://aerolinea-90du.onrender.com/api/tripulacion">API Remota</option>
+        </select>
+    </div>
+
+    <form id="tripulacionForm">
+        <input type="text" id="cedula" placeholder="Cédula" required>
+        <input type="text" id="puesto" placeholder="Puesto" required>
+        <input type="text" id="idVuelo" placeholder="ID Vuelo" required>
+        <button type="submit">Agregar</button>
+    </form>
+
+    <table id="tripulacionTable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cédula</th>
+                <th>Puesto</th>
+                <th>ID Vuelo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script src="consumoapi.js"></script>
+</body>
+
+</html>
