@@ -8,7 +8,6 @@ const port = 3000;
 // Importar las rutas de vuelos
 const vueloRoutes = require("./routes/vueloRoutes"); // Asegúrate de que el archivo de rutas existe
 const tripulacionRoutes = require("./routes/tripulacionRoutes"); // Asegúrate de que el archivo de rutas existe
-const Tripulacion = require("./models/Tripulacion");
 
 // Configuración de la conexión a MongoDB
 const uri = process.env.MONGO_URI; // Obtener la URI de MongoDB desde las variables de entorno
@@ -26,14 +25,14 @@ mongoose
 // Middleware para procesar JSON
 app.use(express.json()); // Asegurarse de que Express pueda manejar JSON
 // Servir archivos estáticos desde la carpeta 'public'
-app.use(express.static(path.join(__dirname, 'static')));
+app.use(express.static(path.join(__dirname, "static")));
 
 // Usar las rutas de vuelos en el prefijo '/api/vuelos'
 app.use("/api/vuelos", vueloRoutes); // Esto Es para textear
 app.use("/api/tripulacion", tripulacionRoutes); // Esto Es para textear
 // Ruta base de prueba
 //app.get("/", (req, res) => {
-  //res.send("¡Hola, mundo!");
+//res.send("¡Hola, mundo!");
 //});
 
 // Iniciar el servidor
