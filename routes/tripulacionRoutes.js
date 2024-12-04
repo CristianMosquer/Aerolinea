@@ -4,7 +4,7 @@ const {
     crearTripulante,
     actualizarTripulante,
     eliminarTripulante,
-} = require('../controllers/tripulacionController');
+} = require('../controller/tripulacionController');
 
 const router = express.Router();
 
