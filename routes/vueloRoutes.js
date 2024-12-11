@@ -1,22 +1,27 @@
 const express = require("express");
 const {
-  obtenerVuelos,
-  crearVuelo,
-  actualizarVuelo,
-  eliminarVuelo,
-} = require("../controller/vueloController"); // Importar los controladores
+  getAllVuelos,
+  createVuelo,
+  getVueloById,
+  updateVuelo,
+  deleteVuelo,
+} = require("../controllers/vueloController");
 
 const router = express.Router();
 
-// Definir las rutas
-router
-  .route("/")
-  .get(obtenerVuelos) // Obtener vuelos
-  .post(crearVuelo); // Crear vuelo
+// Ruta para obtener todos los vuelos
+router.get("/", getAllVuelos);
 
-router
-  .route("/:id")
-  .put(actualizarVuelo) // Actualizar vuelo
-  .delete(eliminarVuelo); // Eliminar vuelo
+// Ruta para crear un nuevo vuelo
+router.post("/", createVuelo);
+
+// Ruta para obtener un vuelo por ID
+router.get("/:id", getVueloById);
+
+// Ruta para actualizar un vuelo por ID
+router.put("/:id", updateVuelo);
+
+// Ruta para eliminar un vuelo por ID
+router.delete("/:id", deleteVuelo);
 
 module.exports = router;
