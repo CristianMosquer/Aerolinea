@@ -1,21 +1,17 @@
 {
-    "name": "aerolinea-proyecto",
-    "version": "1.0.0",
-    "description": "Backend de un sistema de aerolinea",
-    "main": "server.js",
-    "scripts": {
-      "iniciar":"node server.js",
-      "start": "npm-run-all -p start:frontend start:backend",
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "start:frontend": "react-scripts start",
-      "start:backend": "node server.js"
-    },
-    "dependencies": {
-      "cors": "^2.8.5",
-      "dotenv": "^16.0.3",
-      "express": "^4.21.2",
-      "mongoose": "^7.3.1"
-    },
-    "proxy": "https://aerolinea-proyecto.onrender.com"
+  "name": "aerolinea-proyecto",
+  "version": "1.0.0",
+  "description": "Backend de un sistema de aerolínea",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "iniciar": "node server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.21.2",
+    "mongoose": "^7.3.1"
   }
-  
+}
