@@ -1,53 +1,83 @@
 const Vuelo = require("../models/Vuelo");
 
 // Obtener todos los vuelos
-const obtenerVuelos = async (req, res) => {
+const getAllVuelos = async (req, res) => {
   try {
-    // Asegúrate de que la base de datos y colección estén bien configuradas en el modelo
-    const vuelos = await Vuelo.find(); // Aquí no necesitas ningún filtro, simplemente busca todos los vuelos
-    console.log("Vuelos obtenidos:", vuelos); // Esto es solo para depuración
-    res.json(vuelos); // Envía los vuelos como respuesta
+    const vuelos = await Vuelo.find();
+    res.status(200).json(vuelos);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 
-// Crear un vuelo
-const crearVuelo = async (req, res) => {
+// Crear un nuevo vuelo
+const createVuelo = async (req, res) => {
+  const { fecha, destino, origen, matricula } = req.body;
+
   try {
-    const vuelo = new Vuelo(req.body);
-    const vueloGuardado = await vuelo.save();
-    res.status(201).json(vueloGuardado);
+    const newVuelo = new Vuelo({
+      fecha,
+      destino,
+      origen,
+      matricula,
+    });
+
+    await newVuelo.save();
+    res.status(201).json(newVuelo);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 
-// Actualizar un vuelo
-const actualizarVuelo = async (req, res) => {
+// Obtener un vuelo por ID
+const getVueloById = async (req, res) => {
   try {
-    const vueloActualizado = await Vuelo.findByIdAndUpdate(
+    const vuelo = await Vuelo.findById(req.params.id);
+    if (!vuelo) {
+      return res.status(404).json({ message: "Vuelo no encontrado" });
+    }
+    res.status(200).json(vuelo);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Actualizar un vuelo por ID
+const updateVuelo = async (req, res) => {
+  const { fecha, destino, origen, matricula } = req.body;
+
+  try {
+    const updatedVuelo = await Vuelo.findByIdAndUpdate(
       req.params.id,
-      req.body,
-      {
-        new: true,
-        runValidators: true,
-      }
+      { fecha, destino, origen, matricula },
+      { new: true } // Retorna el documento actualizado
     );
-    res.json(vueloActualizado);
+    if (!updatedVuelo) {
+      return res.status(404).json({ message: "Vuelo no encontrado" });
+    }
+    res.status(200).json(updatedVuelo);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 
-// Eliminar un vuelo
-const eliminarVuelo = async (req, res) => {
+// Eliminar un vuelo por ID
+const deleteVuelo = async (req, res) => {
   try {
-    await Vuelo.findByIdAndDelete(req.params.id);
-    res.json({ message: "Vuelo eliminado correctamente" });
+    const deletedVuelo = await Vuelo.findByIdAndDelete(req.params.id);
+    if (!deletedVuelo) {
+      return res.status(404).json({ message: "Vuelo no encontrado" });
+    }
+    res.status(200).json({ message: "Vuelo eliminado exitosamente" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 
-module.exports = { obtenerVuelos, crearVuelo, actualizarVuelo, eliminarVuelo };
+module.exports = {
+  getAllVuelos,
+  createVuelo,
+  getVueloById,
+  updateVuelo,
+  deleteVuelo,
+};
